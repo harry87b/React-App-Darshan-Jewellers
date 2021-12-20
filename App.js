@@ -1,3 +1,4 @@
+
 import React, { Component, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { LayoutAnimation, TouchableOpacity, StyleSheet } from 'react-native';
@@ -9,6 +10,8 @@ import SignInScreen from './Screens/SignInScreen';
 import RegisterScreen from './Screens/RegisterScreen';
 import {initializeApp} from 'firebase/app';
 import { firebaseConfig } from './firebase';
+import HomeScreen from './Screens/HomeScreen';
+
 
 
 
@@ -47,9 +50,11 @@ export default function App() {
 
   return (    
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Signin" screenOptions={{headerShown:false}} >
+      <Stack.Navigator  screenOptions={{headerShown:false}} >
         <Stack.Screen name="Signin" component={SignInScreen} options={{ title: "Sign In" }} />
         <Stack.Screen name="Register" component={RegisterScreen} options={{ title: "Register" }} />
+        <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Home" }} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

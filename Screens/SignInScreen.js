@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Button, StatusBar, TouchableOpacity, Image, PixelRatio } from 'react-native';
 import { getAuth, signinWithEmailAndPassword } from "firebase/auth";
-import {db } from 'firebase';
+import { db } from 'firebase';
 import { auth } from '../firebase';
 
-export default function SignInScreen({navigation}) {
+export default function SignInScreen({ navigation }) {
 
 
     const [email, setEmail] = useState('');
     const [password, setpassword] = useState('');
 
     function signInUser() {
-        console.log("Data on Button Click:"+ email +"" + password);
+        console.log("Data on Button Click:" + email + "" + password);
         auth.signInWithEmailAndPassword(email, password).then((user) => {
-            console.log("user signed in" + user)
+            navigation.replace('Home')
         })
-        
+
 
     }
 
@@ -27,30 +27,30 @@ export default function SignInScreen({navigation}) {
 
 
 
-    return (        
-            <View style={styles.container}>
-            
-                <View>
-                <Image style={{width:150,height:150}} source={{ uri: 'https://cdn.discordapp.com/attachments/869420211101634560/904335279429648444/cropped-unnamed-2.png' }} />
-                </View>
+    return (
+        <View style={styles.container}>
 
-                <StatusBar style="auto" />
-                <View style={styles.inputView}>
-                    <TextInput style={styles.TextInput} placeholder="Email-Id" placeholderTextColor="#000" value={email} onChangeText={setEmail}></TextInput>
-                </View>
-                <View style={styles.inputView}>
-                <TextInput style={styles.TextInput} placeholder="Password" placeholderTextColor="#000" secureTextEntry value={password} onChangeText={setpassword}></TextInput>
-                </View>
-                <TouchableOpacity>
-                    <Text style={styles.forgot_button}>Forgot Password?</Text>
-                </TouchableOpacity>
-            <TouchableOpacity onPress={navigateToRegister}>
-                    <Text style={styles.newUser}>New User? Register Here</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.loginBtn} onPress={signInUser}>
-                    <Text style={styles.loginText}>LOGIN</Text>
-                </TouchableOpacity>
+            <View>
+                <Image style={{ width: 150, height: 150 }} source={{ uri: 'https://cdn.discordapp.com/attachments/869420211101634560/904335279429648444/cropped-unnamed-2.png' }} />
             </View>
+
+            <StatusBar style="auto" />
+            <View style={styles.inputView}>
+                <TextInput style={styles.TextInput} placeholder="Email-Id" placeholderTextColor="#000" value={email} onChangeText={setEmail}></TextInput>
+            </View>
+            <View style={styles.inputView}>
+                <TextInput style={styles.TextInput} placeholder="Password" placeholderTextColor="#000" secureTextEntry value={password} onChangeText={setpassword}></TextInput>
+            </View>
+            <TouchableOpacity>
+                <Text style={styles.forgot_button}>Forgot Password?</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={navigateToRegister}>
+                <Text style={styles.newUser}>New User? Register Here</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.loginBtn} onPress={signInUser}>
+                <Text style={styles.loginText}>LOGIN</Text>
+            </TouchableOpacity>
+        </View>
 
 
 
@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     image: {
-        backgroundColor:"#000",
-        
+        backgroundColor: "#000",
+
     },
     newUser: {
         height: 30,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         height: 50,
         alignItems: "center",
-        justifyContent: "center",        
+        justifyContent: "center",
         backgroundColor: "#FF1493",
     },
 

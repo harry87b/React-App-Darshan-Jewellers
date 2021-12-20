@@ -15,20 +15,20 @@ export default function RegisterScreen({ navigation }) {
         })
 
         
-        // console.log("Data on Button Click:" + name + "" + email + "" + password );
-        // const auth = getAuth();
+        console.log("Data on Button Click:" + name + "" + email + "" + password );
+        const auth = getAuth();
 
-        // createUserWithEmailAndPassword(auth, email, password)
-        //     .then((userCredential) => {
-        //         // Signed in 
-        //         const user = userCredential.user;
-        //         // ...
-        //     })
-        //     .catch((error) => {
-        //         const errorCode = error.code;
-        //         const errorMessage = error.message;
-        //         // ..
-        //     });
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+            });
         
 
     }
