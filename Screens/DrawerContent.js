@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet,  View } from 'react-native'
-import {avatar ,Title,Caption,Text, Drawer, Avatar} from "react-native-paper";
+import {Title,Caption,Text, Drawer, Avatar} from "react-native-paper";
 import { DrawerContentScrollView,DrawerItem } from '@react-navigation/drawer';
 import { Icon } from 'react-native-elements';
 
-export default function DrawerContent(props) {
+const [data, setdata] = useState(null)
+export default function DrawerContent(props) 
+{
     return (
         <View style={{flex:1}}>
             
@@ -21,18 +23,17 @@ export default function DrawerContent(props) {
                     <DrawerItem
                             label="Home"
                             icon={({ color, size }) => (<Icon name="home" type="ionicon" color={color} size={size} />)}
-                            onPress={()=>{props.navigation.navigate("Welcome")}}
-
+                            onPress={()=>{props.navigation.navigate("Item")}}
                         />
                         <DrawerItem
                             label="Products"
                             icon={({ color, size }) => (<Icon name="md-pricetag" type="ionicon" color={color} size={size} />)}
-                            onPress={() => { props.navigation.navigate("Products") }}
+                            onPress={() => { props.navigation.navigate("Item") }}
                         />
                         <DrawerItem
                             label="AboutUs"
                             icon={({ color, size }) => (<Icon name="newspaper" type="ionicon" color={color} size={size} />)}
-                            onPress={() => { props.navigation.navigate("AboutUs") }}
+                            onPress={() => { props.navigation.navigate("Item") }}
                         />
                     </Drawer.Section>
                      
@@ -46,9 +47,7 @@ export default function DrawerContent(props) {
                       
                     />
                     </Drawer.Section>
-                 
-
-                   
+            
                   </View>
             
 

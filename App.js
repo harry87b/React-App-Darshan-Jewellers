@@ -1,60 +1,21 @@
-
-import React, { Component, useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
-import { LayoutAnimation, TouchableOpacity, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { StackNavigator } from 'react-navigation';
+import React from 'react';
+import {  StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignInScreen from './Screens/SignInScreen';
 import RegisterScreen from './Screens/RegisterScreen';
-import {initializeApp} from 'firebase/app';
-import { firebaseConfig } from './firebase';
 import HomeScreen from './Screens/HomeScreen';
-
-
-
-
 
 const Stack = createNativeStackNavigator();
 
 
 export default function App() {
-  const [ShowSplash, setShowSplash] = useState(true);
-  useEffect(() => {
-
-    async function ShowSplashScreen() {
-
-      try {
-        initializeApp(firebaseConfig);
-        await new Promise(resolve => setTimeout(resolve, 5000));
-      } catch (error) {
-        console.log("something went Wrong" + error);
-
-      } finally {
-        setShowSplash(false);
-      }
-    }
-
-    ShowSplashScreen();
-  }, []);
-  if (ShowSplash) {
-    return (
-      <View style={styles.splash}>
-        <Icon name="diamond" size={50} />
-        <Text style={styles.textStyle}>Darshan Jewellers</Text>
-      </View>
-
-    );
-  }
-
   return (    
     <NavigationContainer>
       <Stack.Navigator  screenOptions={{headerShown:false}} >
-        <Stack.Screen name="Signin" component={SignInScreen} options={{ title: "Sign In" }} />
-        <Stack.Screen name="Register" component={RegisterScreen} options={{ title: "Register" }} />
-        <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Home" }} />
-        
+        <Stack.Screen name="Home" component={HomeScreen}  />
+        <Stack.Screen name="Signin" component={SignInScreen}  />
+        <Stack.Screen name="Register" component={RegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

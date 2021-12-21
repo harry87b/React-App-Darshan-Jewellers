@@ -10,13 +10,7 @@ const Tab = createBottomTabNavigator();
 
 export default function HomeScreen() {
     return (
-        // <Drawer.Navigator drawerContent={props=><DrawerContent {...props}/>}
-        // initialRouteName='Welcome'>
-        //     <Drawer.Screen name="AboutUs" component={AboutUsScreen} />
-        //     <Drawer.Screen name="Products" component={ProductsScreen} />
-        //     <Drawer.Screen name="Welcome" component={WelcomeScreen} />
-        // </Drawer.Navigator>
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={{headerShown:false}}>
             <Tab.Screen name="Welcome" component={WelcomeScreen} />
             <Tab.Screen name="Products" component={ProductsScreen} />
             <Tab.Screen name="AboutUs" component={AboutUsScreen} />

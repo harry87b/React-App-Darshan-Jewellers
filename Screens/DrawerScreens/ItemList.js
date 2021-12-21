@@ -1,10 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-export default function Necklace() {
+export default function Chain() {
     return (
         <View>
-            <Text>Necklace</Text>
+            <Text>ITems</Text>
         </View>
     )
 }
