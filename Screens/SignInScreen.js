@@ -1,142 +1,76 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, StatusBar, TouchableOpacity, Image, PixelRatio } from 'react-native';
-import { getAuth, signinWithEmailAndPassword } from "firebase/auth";
-import { db } from 'firebase';
-import { auth } from '../firebase';
+import auth from '@react-native-firebase/auth'
+import { NavigationContainer } from '@react-navigation/native'
+import React, { useState } from 'react'
+import { Image, StyleSheet, Text, View } from 'react-native'
+import { Button, TextInput } from 'react-native-paper'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-export default function SignInScreen({ navigation }) {
+export default function SignInScreen({navigation}) {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
-
-    const [email, setEmail] = useState('');
-    const [password, setpassword] = useState('');
-
-    function signInUser() {
-        console.log("Data on Button Click:" + email + "" + password);
-        auth.signInWithEmailAndPassword(email, password).then((user) => {
-            navigation.replace('Home')
+    const login=()=>
+    {
+        auth().signInWithEmailAndPassword(email,password)
+        .then((res)=>
+        {
+            navigation.replace("Home")
+            console.log(res,"User logged in")
         })
-
-
+        .catch(()=>{
+            alert("Invalid Credentials")
+        })
     }
-
-    function navigateToRegister() {
-        navigation.navigate("Register");
-
-
-    }
-
-
-
     return (
-        <View style={styles.container}>
-
-            <View>
-                <Image style={{ width: 150, height: 150 }} source={{ uri: 'https://cdn.discordapp.com/attachments/869420211101634560/904335279429648444/cropped-unnamed-2.png' }} />
+        <View style={styles.cont}>
+            <Image style={{width:100,height:100}} source={{ uri:'https://www.freepnglogos.com/uploads/diamond-png/diamond-gemstone-black-icon-transparent-png-svg-vector-37.png'}}/>
+            <Text>DARSHAN JEWELLERS</Text>
+            <TextInput
+                style={styles.input}
+                label="Email"
+                underlineColor='tranparent'
+                dense
+                onChangeText={(e) => setEmail(e)}
+            />
+            <TextInput
+                label="Password"
+                style={styles.input}
+                underlineColor='tranparent'
+                dense
+                onChangeText={(e) => setPassword(e)}
+            />
+            <Button  mode="contained" onPress={login} disabled={!email || !password}>
+                Login
+            </Button>
+            <View style={styles.registerView}>
+                <Text >New To DJ ?</Text>
+                <Button mode="text" labelStyle={{textTransform:'capitalize'}} onPress={()=>navigation.navigate('Register')}>
+                    Register
+                </Button>
             </View>
-
-            <StatusBar style="auto" />
-            <View style={styles.inputView}>
-                <TextInput style={styles.TextInput} placeholder="Email-Id" placeholderTextColor="#000" value={email} onChangeText={setEmail}></TextInput>
-            </View>
-            <View style={styles.inputView}>
-                <TextInput style={styles.TextInput} placeholder="Password" placeholderTextColor="#000" secureTextEntry value={password} onChangeText={setpassword}></TextInput>
-            </View>
-            <TouchableOpacity>
-                <Text style={styles.forgot_button}>Forgot Password?</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={navigateToRegister}>
-                <Text style={styles.newUser}>New User? Register Here</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.loginBtn} onPress={signInUser}>
-                <Text style={styles.loginText}>LOGIN</Text>
-            </TouchableOpacity>
         </View>
-
-
-
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+    cont:{
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    input: {
+        width: '90%',
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        elevation: 10,
+        margin: 10,
+        padding: 5,
+        borderRadius: 5
     },
-    image: {
-        backgroundColor: "#000",
-
-    },
-    newUser: {
-        height: 30,
-        marginBottom: 25,
-        color: "#000",
-    },
-
-    inputView: {
-        backgroundColor: "pink",
-        borderRadius: 30,
-        width: "70%",
-        height: 55,
-        marginBottom: 23,
-        alignItems: "center",
-    },
-    TextInput: {
-        height: 50,
-        flex: 1,
-        padding: 10,
-        marginLeft: 20,
-        color: "#000"
-
-    },
-    forgot_button: {
-        height: 30,
-        marginBottom: 30,
-        color: "#000",
-    },
-    loginBtn: {
-        width: "80%",
-        borderRadius: 25,
-        height: 50,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#FF1493",
-    },
-
-
-    splash: {
-        flex: 1,
-        // Make the backgroud as a gradient color
-        backgroundColor: '#aed',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    textStyle: {
-        fontSize: 24,
-        color: "#000",
-        marginBottom: 12
-    },
-    myBackground: {
-        backgroundColor: '#fae',
-        fontSize: 24,
-        marginBottom: 20
-    },
-    image: {
-        width: 300,
-        height: 200,
-        marginBottom: 20
-    },
-    item: {
-        backgroundColor: "#fff",
-        padding: 16,
-        margin: 12
-    },
-    title: {
-        fontSize: 16,
-        color: "#f00"
-    },
-    subTitle: {
-        fontSize: 12,
+    registerView:{
+        width:'100%',
+        margin:20,
+        alignItems:'center',
+        flexDirection:'row',
+        justifyContent:'center'
     }
-});
+})

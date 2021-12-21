@@ -1,10 +1,12 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-
+import { Button } from 'react-native-paper'
+import auth from '@react-native-firebase/auth'
 export default function WelcomeScreen() {
     return (
         <View style={styles.container}>
             <Text style={styles.textStyle}> Welcome to Darshan Jewellers </Text>
+            <Button onPress={()=>auth().signOut()}>Logout</Button>
         </View>
     )
 }

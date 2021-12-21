@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { StyleSheet,  View } from 'react-native'
-import {Title,Caption,Text, Drawer, Avatar} from "react-native-paper";
+import {Title,Caption, Drawer, Avatar} from "react-native-paper";
 import { DrawerContentScrollView,DrawerItem } from '@react-navigation/drawer';
 import { Icon } from 'react-native-elements';
 
-const [data, setdata] = useState(null)
 export default function DrawerContent(props) 
 {
     return (
