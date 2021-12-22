@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
 import auth from '@react-native-firebase/auth';
-
+import LottieView from 'lottie-react-native';
+import { Text } from 'react-native';
 const SplashScreen = ({navigation}) => {
 
    useEffect(() => {
@@ -16,19 +16,9 @@ const SplashScreen = ({navigation}) => {
        })
    }, [navigation])
     return (
-        <View style={styles.cont}>
-            <Image style={{ width: 200, height: 200 }} source={{ uri: 'https://www.freepnglogos.com/uploads/diamond-png/diamond-gemstone-black-icon-transparent-png-svg-vector-37.png' }} />
-            <Text>Darshan Jewellers</Text>
-        </View>
+            //<LottieView source={require('../assets/Animation/12147-diamond-anyjson.json')} autoPlay loop />
+            <Text>Hello Splash</Text>
     )
 }
 
 export default SplashScreen
-
-const styles = StyleSheet.create({
-    cont:{
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center'
-    }
-})
