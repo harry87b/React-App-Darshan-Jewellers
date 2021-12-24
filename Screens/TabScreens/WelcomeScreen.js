@@ -1,12 +1,18 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { Button } from 'react-native-paper'
 import auth from '@react-native-firebase/auth'
+import Carousel from 'react-native-snap-carousel';
+
+
 export default function WelcomeScreen() {
     return (
         <View style={styles.container}>
-            <Text style={styles.textStyle}> Welcome to Darshan Jewellers </Text>
-            <Button onPress={()=>auth().signOut()}>Logout</Button>
+        <ScrollView style={styles.scroll}>
+            <Text style={styles.title}>Darshan Jewellers </Text>
+                <Text>(ਖੁਰਦ ਵਾਲੇ)</Text>
+            {/* <Button onPress={()=>auth().signOut()}>Logout</Button> */}
+            </ScrollView>
         </View>
     )
 }
@@ -26,9 +32,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     textStyle: {
-        fontSize: 24,
-        color: "#000",
-        marginBottom: 12
+        fontSize: 16,
+        color: "#f00"
     },
     myBackground: {
         backgroundColor: '#fae',
@@ -46,10 +51,15 @@ const styles = StyleSheet.create({
         margin: 12
     },
     title: {
-        fontSize: 16,
-        color: "#f00"
+        fontSize: 24,
+        fontFamily: "serif",
+        color: "#000",
+        
     },
     subTitle: {
         fontSize: 12,
+    },
+    scroll:{
+        marginTop:50
     }
 })

@@ -15,7 +15,7 @@ export default function HomeScreen() {
     console.log(auth().currentUser)
     return (
         <Tab.Navigator screenOptions={{ headerShown: false }} >
-            <Tab.Screen name="Welcome" component={WelcomeScreen} options={{
+            <Tab.Screen name="Home" component={WelcomeScreen} options={{
                 tabBarIcon: ({ size, color }) => (<Icon name={"home"} color={'#000'} size={20} />)
             }}/>
             <Tab.Screen name="About" component={AboutUsScreen} options={{
