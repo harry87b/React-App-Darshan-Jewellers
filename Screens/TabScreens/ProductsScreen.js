@@ -4,7 +4,7 @@ import ItemList from '../DrawerScreens/ItemList';
 import DrawerContent from '../DrawerContent';
 const Drawer = createDrawerNavigator();
 
-export default function ProductsScreen() {
+export default function ProductsScreen(props) {
     return (
         <Drawer.Navigator 
         screenOptions={{

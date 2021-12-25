@@ -7,26 +7,37 @@ import ProductsScreen from './TabScreens/ProductsScreen'
 import ProfileScreen from './TabScreens/ProfileScreen'
 // import Icon from 'react-native-ionicons';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { View } from 'react-native';
+import CustomTab from '../Components/CustomTab';
+import { StatusBar } from 'react-native';
 
 
 const Tab = createBottomTabNavigator();
 
+const options =({ route }) => ({
+    headerShown: false,
+    tabBarIcon: ({ focused, color, size }) => {
+      let iconName;
+      if (route.name === 'Welcome') 
+        iconName = focused ? 'home' : 'home';
+       else if (route.name === 'About') 
+        iconName = focused ? 'info' : 'info';
+       else if (route.name === 'Products') 
+        iconName = focused ? 'diamond' : 'diamond';
+       else if (route.name === 'Profile') 
+        iconName = focused ? 'user-circle' : 'user-circle';
+      return <Icon name={iconName} size={size} color={color} />;
+    },
+    tabBarActiveTintColor: '#C28E39',
+    tabBarInactiveTintColor: '#000',
+  })
 export default function HomeScreen() {
-    console.log(auth().currentUser)
     return (
-        <Tab.Navigator screenOptions={{ headerShown: false }} >
-            <Tab.Screen name="Home" component={WelcomeScreen} options={{
-                tabBarIcon: ({ size, color }) => (<Icon name={"home"} color={'#000'} size={20} />)
-            }}/>
-            <Tab.Screen name="About" component={AboutUsScreen} options={{
-                tabBarIcon: ({ size, color }) => (<Icon name={"info"} color={'#000'} size={20} />)
-            }}  />
-            <Tab.Screen name="Products" component={ProductsScreen} options={{
-                tabBarIcon: ({ size, color }) => (<Icon name={"diamond"} color={'#000'} size={20} />)
-            }} />
-            <Tab.Screen name="Profile" component={ProfileScreen} options={{
-                tabBarIcon: ({ size, color }) => (<Icon name={"user-circle"} color={'#000'} size={20} />)
-            }} />
+        <Tab.Navigator screenOptions={options} >
+            <Tab.Screen name="Welcome" component={WelcomeScreen}/>
+            <Tab.Screen name="Products" component={ProductsScreen} />
+            <Tab.Screen name="About" component={AboutUsScreen}  />
+            <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>
     )
 }

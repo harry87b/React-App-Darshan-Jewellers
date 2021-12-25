@@ -1,21 +1,38 @@
 import React, { useEffect, useState, useLayoutEffect } from 'react'
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
-import firestore from '@react-native-firebase/firestore';
 import { Caption, Card, Title } from 'react-native-paper';
 import { Dimensions } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
+import ProductCard from '../../Components/ProductCard';
+
 export default function ItemList({ route, navigation }) {
     const collection = route.params?.collection ? route.params?.collection : 'Bangles'
     const [data, setData] = useState([])
+    const [tap, setTap] = useState(false)
+    
+    const user = auth().currentUser
+    const [liked,setLiked] = useState([])
+
     useEffect(() => {
         firestore().collection(collection).get().then((e) => {
-            setData(e.docs.map(doc => doc.data()))
+            setData(e.docs.map(doc => ({...doc.data(),id:doc.id})))
         })
-    }, [collection])
+        
+    }, [collection,navigation])
+
+    useEffect(() => {
+        
+        if(!user) return
+        firestore().collection("favs").doc(user.email).collection("favs").get().then((e) => {
+            setLiked(e.docs.map(doc => doc.data()))
+        })
+    }, [user])
 
     useLayoutEffect(() => {
-        navigation.setOptions({
-            title: collection,
-        });
+        navigation.setOptions({ title: collection });
     }, [navigation, collection])
 
     return (
@@ -24,13 +41,11 @@ export default function ItemList({ route, navigation }) {
                 <View style={styles.cards}>
                     {data.length != 0 ?
                         data.map(item =>
-                            <View key={item.weight} style={styles.card}>
-                                <Image source={{ uri: item.image_url }} style={styles.img} />
-                                <View style={styles.desc}>
-                                    <Text style={styles.title}>{item.title}</Text>
-                                    <Text style={styles.weight} >Weight : {item.weight}</Text>
-                                </View>
-                            </View>)
+                        <ProductCard
+                         key={item.id}
+                         liked={!!liked.find(e=>e.id===item.id)}
+                          item={item}
+                          />)
                         :
                         <Text>No Records Found</Text>
                     }
@@ -66,6 +81,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         elevation: 2,
         padding: 5,
+        position: 'relative'
     },
     title: {
         fontSize: 16,
@@ -73,17 +89,15 @@ const styles = StyleSheet.create({
         color: "#000",
         textTransform: "capitalize",
     },
-    desc: {
-
-    },
     weight: {
         color: "#000",
     },
-
     img: {
         // resizeMode: 'contain',
         width: 180,
         height: 180,
+        opacity: 0.7,
+        backgroundColor: '#000',
     }
 
 })

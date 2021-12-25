@@ -21,11 +21,11 @@ export default function DrawerContent(props) {
             <View style={{ flex: 1 }}>
                 <DrawerContentScrollView {...props}>
                     <Drawer.Section >
-                        <DrawerItem
+                        {/* <DrawerItem
                             label="More Products"
                             style={styles.sectionTitle}
                             labelStyle={{ fontWeight: "900", fontSize: 16, color: "black" }}
-                        />
+                        /> */}
                         {list.map(item =>
                             <DrawerItem
                                 style={styles.section}

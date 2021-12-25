@@ -6,17 +6,25 @@ import RegisterScreen from './Screens/RegisterScreen';
 import HomeScreen from './Screens/HomeScreen';
 import SplashScreen from './Screens/SplashScreen';
 import InitialScreen from './Screens/InitialScreen';
+import { StatusBar } from 'react-native';
+import WishList from './Components/WishList';
 
 const Stack = createNativeStackNavigator();
 
-export default App=()=> {
-  return (    
+export default App = () => {
+  return (
     <NavigationContainer>
-      <Stack.Navigator  screenOptions={{headerShown:false}} >
-        <Stack.Screen name="Initial" component={InitialScreen} />
+      <StatusBar
+          backgroundColor="transparent"
+          translucent={true}
+          barStyle='dark-content'
+        />
+      <Stack.Navigator screenOptions={{ headerShown: false }} >
         <Stack.Screen name="Splash" component={SplashScreen} />
-        <Stack.Screen name="Signin" component={SignInScreen}  />
-        <Stack.Screen name="Home" component={HomeScreen}  />
+        <Stack.Screen name="Initial" component={InitialScreen} />
+        <Stack.Screen name="Signin" component={SignInScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Wish" component={WishList} />
         <Stack.Screen name="Register" component={RegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>

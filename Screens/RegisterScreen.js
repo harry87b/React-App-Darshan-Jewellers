@@ -19,22 +19,24 @@ export default function RegisterScreen({navigation}) {
     return (
         <ImageBackground source={{ uri: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8amV3ZWxyeXxlbnwwfDF8MHx8&auto=format&fit=crop&w=500&q=60" }} style={styles.cont}>
         <View style={styles.cont}>
-            {/* <Image style={{ width: 100, height: 100 }} source={{ uri: 'https://www.freepnglogos.com/uploads/diamond-png/diamond-gemstone-black-icon-transparent-png-svg-vector-37.png' }} /> */}
+        <Text style={{fontSize:23,color:'white',fontWeight:'bold',textTransform:'uppercase',letterSpacing:2,marginBottom:30}}>Register Here</Text>
             <TextInput
                 style={styles.input}
                 label="Email"
-                underlineColor='tranparent'
+                underlineColor='white'
+                theme={{colors:{primary:'#fff',text:'#fff',placeholder:'#fff'}}}
                 dense
                 onChangeText={(e) => setEmail(e)}
             />
             <TextInput
                 label="Password"
                 style={styles.input}
-                underlineColor='tranparent'
+                underlineColor='white'
                 dense
+                theme={{colors:{primary:'#fff',text:'#fff',placeholder:'#fff'}}}
                 onChangeText={(e) => setPassword(e)}
             />
-            <Button mode="contained" onPress={register} disabled={!email || !password}>
+            <Button mode="contained" style={styles.btn} onPress={register} disabled={!email || !password}>
                 Register
             </Button>
             <View style={styles.registerView}>
@@ -53,7 +55,8 @@ const styles = StyleSheet.create({
         width: "100%",
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: "rgba(0, 0, 0,0.8)"
     },
     text: {
         color: '#fff',
@@ -62,10 +65,10 @@ const styles = StyleSheet.create({
     input: {
         width: '80%',
         backgroundColor: '#fff',
-        elevation: 10,
-        margin: 10,
-        borderRadius: 30,
-        padding: 5,
+        height:60,
+        backgroundColor:'transparent',
+        borderRadius: 10,
+        margin:5
     },
     registerView: {
         width: '100%',
@@ -73,5 +76,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'center'
+    },
+    btn:{
+        color: "#fff",
+        borderRadius: 10,
+        backgroundColor:'white',
+        marginTop:30,
+        width:'60%',
+        height:40
     }
 })
