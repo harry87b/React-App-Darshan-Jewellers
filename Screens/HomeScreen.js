@@ -38,9 +38,14 @@ const options =({ route,navigation }) => ({
       fontWeight: 'bold',
     },
     headerRight: () => (
-      <TouchableOpacity style={{marginRight:30}} onPress={()=>navigation.navigate('Profile')}>
-      <Icon name='user-circle' size={30} color={"#fff"} />
+      <View style={{flexDirection: 'row',justifyContent: 'space-evenly',width:100}}>
+      <TouchableOpacity onPress={()=>navigation.navigate('Profile')}>
+      <Icon name='user-circle' size={24} color={"#fff"} />
       </TouchableOpacity>
+      <TouchableOpacity onPress={()=>navigation.navigate('Wish')}>
+      <Icon name='heart-o' size={24} color={"#fff"} />
+      </TouchableOpacity>
+      </View>
     ),
   })
 export default function HomeScreen() {

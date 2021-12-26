@@ -6,86 +6,83 @@ import Loading from '../../assets/Loading'
 import { SliderBox } from "react-native-image-slider-box";
 import { Avatar, Card, Paragraph, Title } from 'react-native-paper';
 import Cards from '../../Components/Cards';
+import axios from 'axios';
 export default function WelcomeScreen(props) {
     const [data, setData] = useState([])
+    const [price, setPrice] = useState(null)
     const [loading, setloading] = useState(true)
     const components = [
-        { label: 'Buy Gold', image: 'bank' },
-        { label: 'Sold Gold', image: 'shopping-cart' },
-        { label: 'Live price', image: 'balance-scale' },
+        { label: 'Buy Gold', image: 'bank',screen:'Home' },
+        { label: 'Sold Gold', image: 'shopping-cart',screen:'Home' },
+        { label: 'Live price', image: 'balance-scale',screen:'Live' },
     ]
     useEffect(() => {
         firestore().collection('Bracelet').get().then((e) => {
             setData(e.docs.map(doc => doc.data()))
         })
-    }, [])
+        axios.get('https://www.metals-api.com/api/latest?access_key=yakk4a9b3j7o8y6x7934ox9rjlluv1tj2dkuq3t18phf7552nm0b70ths4o5&base=INR&symbols=XAU')
+        .then((res)=>{
+            let perounce=res.data.rates.XAU
+            let price=parseInt(perounce)
+            price=parseInt(price/31)
+            price=parseInt(price+price*0.13)
+            setPrice(price)
+        })
+        .catch(e=>console.log(e))
+    }, [props.navigation])
     const images = []
     {
         data.map(item => {
             images.push(item.image_url)
         })
     }
-    const [search, setSearch] = useState('')
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView>
-                <View style={styles.topView}>
-                    <View style={styles.header}>
-                        <View style={styles.input}>
-                            <Text>Search</Text>
-                        </View>
-                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                            <TouchableOpacity onPress={() => props.navigation.navigate('Wish')}>
-                                <Icon name="heart-o" size={20} color={'white'} />
-                            </TouchableOpacity>
-                            <Icon name="bell-o" size={20} color={'white'} />
-                        </View>
-                    </View>
-                    <View style={{ width: '100%', height: 230, marginTop: 7 }}>
-                        <SliderBox
-                            images={images}
-                            sliderBoxHeight={230}
-                            autoPlay
-                            circleLoop
-                            dotColor="#FFEE58"
-                            inactiveDotColor="#90A4AE"
-                            paginationBoxStyle={{
-                                position: "absolute",
-                                bottom: 0,
-                                padding: 0,
-                                alignItems: "center",
-                                alignSelf: "center",
-                                justifyContent: "center",
-                            }}
-                            ImageComponentStyle={{ borderRadius: 20, width: '97%' }}
-                            dotStyle={{
-                                width: 10,
-                                height: 10,
-                                borderRadius: 5,
-                                backgroundColor: "rgba(128, 128, 128, 0.92)"
-                            }}
-                        />
-                    </View>
+            <View style={styles.topView}>
+                <View style={{ width: '100%', height: 180, margin: 10 }}>
+                    <SliderBox
+                        images={images}
+                        sliderBoxHeight={180}
+                        autoPlay
+                        circleLoop
+                        dotColor="#FFEE58"
+                        inactiveDotColor="#90A4AE"
+                        paginationBoxStyle={{
+                            position: "absolute",
+                            bottom: 0,
+                            padding: 0,
+                            alignItems: "center",
+                            alignSelf: "center",
+                            justifyContent: "center",
+                        }}
+                        ImageComponentStyle={{ borderRadius: 20, width: '97%' }}
+                        dotStyle={{
+                            width: 10,
+                            height: 10,
+                            borderRadius: 5,
+                            backgroundColor: "rgba(128, 128, 128, 0.92)"
+                        }}
+                    />
                 </View>
-                <View style={styles.bottomView}>
-                    <View style={{ width: '86%', marginTop: 40, elevation: 5, height: 60, backgroundColor: '#fff', borderRadius: 20, justifyContent: 'space-evenly', flexDirection: 'row' }}>
+            </View>
+            <View style={styles.bottomView}>
+                <ScrollView contentContainerStyle={{width:'100%',alignItems: 'center',overflow:'hidden'}} showsVerticalScrollIndicator={false}>
+                    <View style={{ width: '86%', marginTop: 40, elevation: 5, height: 60, backgroundColor: '#fff', borderRadius: 20, justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row' }}>
                         {components.map(item =>
-                            <TouchableOpacity key={item.label} style={{ flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center' }}>
+                            <TouchableOpacity key={item.label} style={{ flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center' }} onPress={()=>props.navigation.navigate(item.screen)}>
                                 <Icon name={item.image} size={18} color={'#C28E39'} />
                                 <Text style={{ color: '#000' }}>{item.label}</Text>
                             </TouchableOpacity>
                         )}
                     </View>
-                    <Card style={{ width: '86%', elevation: 5, borderRadius: 10, marginTop: 20 }}>
+                    <Card style={{ width: '100%', elevation: 5, borderRadius: 10, marginTop: 20 }}>
                         <Card.Title
                             title="Gold Price"
-                            left={(props) => <Avatar.Icon {...props} icon="gift" />}
+                            right={(props) => <Text style={{margin:20,fontWeight: 'bold',fontSize:18}}>{price*10}/10g</Text>}
                         />
-                        <Card.Content>
-                            <Paragraph>ggsgnsdiugbisdfguisdbngiDBiufgDfbDIfbodufhodgdofgjdshfuhdofhndojojdhnjodsbnosdfgbnsodugbosjdgbdojgbsdjofgbo</Paragraph>
-                        </Card.Content>
-                        <Card.Content>
-                            <Paragraph>Powered By: DARSHAN</Paragraph>
+                        <Card.Content style={{flexDirection: 'row'}}>
+                            {/* <GetGoldPrice/> */}
+                            <Paragraph>Powered By: DARSHAN JEWELLER</Paragraph>
                         </Card.Content>
                     </Card>
                     <View style={styles.cards}>
@@ -94,8 +91,8 @@ export default function WelcomeScreen(props) {
                             <Cards props={props} />
                         </ScrollView>
                     </View>
-                </View>
-            </ScrollView>
+                </ScrollView>
+            </View>
         </SafeAreaView>
     )
 }
@@ -137,7 +134,6 @@ const styles = StyleSheet.create({
         color: "#000",
     },
     topView: {
-        flex: 0.7,
         width: '100%',
         alignItems: 'center',
     },
@@ -149,8 +145,9 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 70,
         borderTopLeftRadius: 70,
         alignItems: "center",
-        paddingVertical: 20,
+        marginTop: 20,
         justifyContent: 'space-evenly',
+        overflow:'hidden'
     },
     cards: {
         flex: 1,

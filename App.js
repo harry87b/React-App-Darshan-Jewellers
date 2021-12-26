@@ -8,6 +8,7 @@ import SplashScreen from './Screens/SplashScreen';
 import InitialScreen from './Screens/InitialScreen';
 import { StatusBar } from 'react-native';
 import WishList from './Components/WishList';
+import LivePrice from './Screens/LivePrice';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,13 @@ export default App = () => {
         <Stack.Screen name="Signin" component={SignInScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Wish" component={WishList} />
+        <Stack.Screen name="Live" component={LivePrice} options={{headerShown:true,headerStyle: {
+      backgroundColor: '#C28E39',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },}}/>
         <Stack.Screen name="Register" component={RegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
