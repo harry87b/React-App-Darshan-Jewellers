@@ -28,22 +28,23 @@ export default function WelcomeScreen(props) {
     const [search, setSearch] = useState('')
     return (
         <SafeAreaView style={styles.container}>
+            <ScrollView>
                 <View style={styles.topView}>
                     <View style={styles.header}>
                         <View style={styles.input}>
                             <Text>Search</Text>
                         </View>
                         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                        <TouchableOpacity onPress={()=>props.navigation.navigate('Wish')}>
-                            <Icon name="heart-o" size={20} color={'white'} />
-                        </TouchableOpacity>
+                            <TouchableOpacity onPress={() => props.navigation.navigate('Wish')}>
+                                <Icon name="heart-o" size={20} color={'white'} />
+                            </TouchableOpacity>
                             <Icon name="bell-o" size={20} color={'white'} />
                         </View>
                     </View>
-                    <View style={{ width: '100%', height:150 }}>
+                    <View style={{ width: '100%', height: 230, marginTop: 7 }}>
                         <SliderBox
                             images={images}
-                            sliderBoxHeight={130}
+                            sliderBoxHeight={230}
                             autoPlay
                             circleLoop
                             dotColor="#FFEE58"
@@ -55,9 +56,8 @@ export default function WelcomeScreen(props) {
                                 alignItems: "center",
                                 alignSelf: "center",
                                 justifyContent: "center",
-                                paddingVertical: 10
                             }}
-                            ImageComponentStyle={{ borderRadius: 15, width: '97%', marginTop: 5 }}
+                            ImageComponentStyle={{ borderRadius: 20, width: '97%' }}
                             dotStyle={{
                                 width: 10,
                                 height: 10,
@@ -68,15 +68,15 @@ export default function WelcomeScreen(props) {
                     </View>
                 </View>
                 <View style={styles.bottomView}>
-                    <View style={{ width: '86%', margin: 20, elevation: 5, height: 60, backgroundColor: '#fff', borderRadius: 20, justifyContent: 'space-evenly', flexDirection: 'row' }}>
+                    <View style={{ width: '86%', marginTop: 40, elevation: 5, height: 60, backgroundColor: '#fff', borderRadius: 20, justifyContent: 'space-evenly', flexDirection: 'row' }}>
                         {components.map(item =>
                             <TouchableOpacity key={item.label} style={{ flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center' }}>
                                 <Icon name={item.image} size={18} color={'#C28E39'} />
-                                <Text>{item.label}</Text>
+                                <Text style={{ color: '#000' }}>{item.label}</Text>
                             </TouchableOpacity>
                         )}
                     </View>
-                    <Card style={{ width: '86%', elevation: 5,borderRadius:10 }}>
+                    <Card style={{ width: '86%', elevation: 5, borderRadius: 10, marginTop: 20 }}>
                         <Card.Title
                             title="Gold Price"
                             left={(props) => <Avatar.Icon {...props} icon="gift" />}
@@ -89,12 +89,13 @@ export default function WelcomeScreen(props) {
                         </Card.Content>
                     </Card>
                     <View style={styles.cards}>
-                        <Text style={{fontWeight: 'bold',fontSize: 20,marginBottom:10}}>Categories</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 20, marginBottom: 10, color: '#000' }}>Categories</Text>
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                        <Cards props={props}/>
+                            <Cards props={props} />
                         </ScrollView>
                     </View>
                 </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }
@@ -118,7 +119,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     header: {
-        marginTop:30,
         width: '100%',
         padding: 10,
         flexDirection: 'row',
@@ -137,7 +137,8 @@ const styles = StyleSheet.create({
         color: "#000",
     },
     topView: {
-        width:'100%',
+        flex: 0.7,
+        width: '100%',
         alignItems: 'center',
     },
     bottomView:
@@ -145,15 +146,16 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         backgroundColor: '#fff',
-        borderTopRightRadius: 50,
-        borderTopLeftRadius: 50,
+        borderTopRightRadius: 70,
+        borderTopLeftRadius: 70,
         alignItems: "center",
-        justifyContent: 'center'
+        paddingVertical: 20,
+        justifyContent: 'space-evenly',
     },
-    cards:{
-        flex:1,
-        width:'86%',
-        height:200,
-        marginTop:10,
+    cards: {
+        flex: 1,
+        width: '86%',
+        height: 200,
+        marginTop: 30,
     }
 })

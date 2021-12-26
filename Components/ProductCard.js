@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import { ActivityIndicator } from 'react-native';
+import { Linking } from 'react-native';
 
 const ProductCard = ({ item, liked }) => {
     const [isLiked, setIsLiked] = useState(false)
@@ -12,7 +13,7 @@ const ProductCard = ({ item, liked }) => {
     const user = auth().currentUser
 
     useEffect(() => { setIsLiked(liked) }, [liked])
-
+    
     const add = () => {
         setLoading(true)
         firestore().collection("favs").doc(user.email).collection("favs").doc(item.id).set(item).then(() => { setIsLiked(true); setLoading(false);console.log('add hogeya') })

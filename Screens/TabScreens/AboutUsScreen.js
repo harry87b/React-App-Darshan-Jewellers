@@ -15,7 +15,7 @@ export default function AboutUsScreen() {
     ]
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={{ fontWeight: 'bold', fontSize: 30, textTransform: 'uppercase', color: '#fff', margin: 20 }}>ABOUT US</Text>
+            {/* <Text style={{ fontWeight: 'bold', fontSize: 30, textTransform: 'uppercase', color: '#fff', margin: 20 }}>ABOUT US</Text> */}
             <ScrollView>
                 <View style={styles.container}>
                     <Text style={{ ...styles.heading}}>Darshan Jewellers (ਖੁਰਦ ਵਾਲੇ)</Text>

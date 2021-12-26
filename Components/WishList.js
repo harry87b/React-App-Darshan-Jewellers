@@ -4,6 +4,7 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ProductCard from './ProductCard'
+import LottieView from 'lottie-react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
@@ -18,7 +19,7 @@ const WishList = () => {
     },[user])
     return (
         <SafeAreaView style={styles.container}>
-        <Text style={{fontSize:26,fontWeight:'bold',color:'#fff',textTransform:'uppercase',margin:30}}>My Favourites</Text>
+        <Text style={{fontSize:26,fontWeight:'bold',color:'#000',textTransform:'uppercase',margin:"10%"}}>My Favourites</Text>
         <ScrollView>
             <View style={styles.cards}>
                 {data.length != 0 ?
@@ -29,11 +30,11 @@ const WishList = () => {
                       item={item}
                       />)
                     :
-                    <Text>No Records Found</Text>
+                    <LottieView source={require('../assets/Animation/notfound.json')} autoPlay loop style={{width:300, height:300}}/>
+
                 }
             </View>
         </ScrollView>
-
     </SafeAreaView>
     )
 }
@@ -43,27 +44,25 @@ export default WishList
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#BA904A',
+        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },
     cards: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         flexDirection: 'row',
         flexWrap: "wrap",
-        paddingHorizontal: 13
     },
     card: {
-        width: (Dimensions.get('window').width / 2) - 20,
-        justifyContent: "center",
-        alignItems: "center",
+        width: (Dimensions.get('window').width / 2),
+        // justifyContent: "center",
+        // alignItems: "center",
         backgroundColor: '#fff',
         borderRadius: 10,
         marginBottom: 10,
         elevation: 2,
-        padding: 5,
         position: 'relative'
     },
     title: {

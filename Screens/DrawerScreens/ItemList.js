@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useLayoutEffect } from 'react'
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View ,Linking} from 'react-native'
 import { Caption, Card, Title } from 'react-native-paper';
 import { Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -12,20 +12,22 @@ export default function ItemList({ route, navigation }) {
     const collection = route.params?.collection ? route.params?.collection : 'Bangles'
     const [data, setData] = useState([])
     const [tap, setTap] = useState(false)
-    
-    const user = auth().currentUser
-    const [liked,setLiked] = useState([])
 
+    const user = auth().currentUser
+    const [liked, setLiked] = useState([])
+    const sendMsg = ( msg) => {
+        Linking.openURL('whatsapp://send?text=' + "Can U plz tell me the details of this product " +'\n'+ msg  +'\n' + '&phone=91' + '8427460051');
+    }
     useEffect(() => {
         firestore().collection(collection).get().then((e) => {
-            setData(e.docs.map(doc => ({...doc.data(),id:doc.id})))
+            setData(e.docs.map(doc => ({ ...doc.data(), id: doc.id })))
         })
-        
-    }, [collection,navigation])
+
+    }, [collection, navigation])
 
     useEffect(() => {
-        
-        if(!user) return
+
+        if (!user) return
         firestore().collection("favs").doc(user.email).collection("favs").get().then((e) => {
             setLiked(e.docs.map(doc => doc.data()))
         })
@@ -38,14 +40,15 @@ export default function ItemList({ route, navigation }) {
     return (
         <View style={styles.container}>
             <ScrollView>
-                <View style={styles.cards}>
+                <View style={styles.cards} >
                     {data.length != 0 ?
                         data.map(item =>
-                        <ProductCard
-                         key={item.id}
-                         liked={!!liked.find(e=>e.id===item.id)}
-                          item={item}
-                          />)
+                            <TouchableOpacity key={item.id} onPress={()=>sendMsg( item.title + item.weight)}>
+                                <ProductCard
+                                    liked={!!liked.find(e => e.id === item.id)}
+                                    item={item}
+                                />
+                            </TouchableOpacity>)
                         :
                         <Text>No Records Found</Text>
                     }

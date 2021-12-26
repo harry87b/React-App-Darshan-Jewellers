@@ -7,15 +7,15 @@ import ProductsScreen from './TabScreens/ProductsScreen'
 import ProfileScreen from './TabScreens/ProfileScreen'
 // import Icon from 'react-native-ionicons';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import CustomTab from '../Components/CustomTab';
 import { StatusBar } from 'react-native';
+import { Avatar } from 'react-native-paper';
 
 
 const Tab = createBottomTabNavigator();
 
-const options =({ route }) => ({
-    headerShown: false,
+const options =({ route,navigation }) => ({
     tabBarIcon: ({ focused, color, size }) => {
       let iconName;
       if (route.name === 'Welcome') 
@@ -30,6 +30,18 @@ const options =({ route }) => ({
     },
     tabBarActiveTintColor: '#C28E39',
     tabBarInactiveTintColor: '#000',
+    headerStyle: {
+      backgroundColor: '#C28E39',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+    headerRight: () => (
+      <TouchableOpacity style={{marginRight:30}} onPress={()=>navigation.navigate('Profile')}>
+      <Icon name='user-circle' size={30} color={"#fff"} />
+      </TouchableOpacity>
+    ),
   })
 export default function HomeScreen() {
     return (
